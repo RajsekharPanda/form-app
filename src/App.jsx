@@ -17,14 +17,15 @@ function App() {
   //   setLastName(event.target.value)
   // }
 
-  const [formData, setFormData] = useState({firstName:"", lastName:"", email:"", comments:""});
+  const [formData, setFormData] = useState({firstName:"", lastName:"", email:"", comments:"", isVisible:true, mode:""});
   console.log(formData)
   
   function changeHandler(event){
+    const {name, value, checked, type} = event.target
     setFormData(prevFormData => {
       return{
         ...prevFormData,
-        [event.target.name] : event.target.value
+        [name] : type==="checkbox" ? checked : value
       }
     });
   }
@@ -59,6 +60,28 @@ function App() {
         name='comments'
         value={formData.comments}
         />
+        <br />
+        <br />
+        <input type="checkbox" 
+        onChange={changeHandler}
+        name='isVisible'
+        id='isVisible'
+        checked={formData.isVisible}
+        />
+
+        <label htmlFor="isVisible">Am I visible ?</label>
+
+        <br />
+        <br />
+        
+        <input 
+        type="radio"
+        onChange={changeHandler}
+        name='mode'
+        value="Online-Mode"
+        id='Online-Mode'
+        />
+        <label htmlFor="Online-Mode">Online-Mode</label>
       </form>
     </div>
   )
