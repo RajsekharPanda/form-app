@@ -17,8 +17,8 @@ function App() {
   //   setLastName(event.target.value)
   // }
 
-  const [formData, setFormData] = useState({firstName:"", lastName:"", email:"", comments:"", isVisible:true, mode:""});
-  console.log(formData)
+  const [formData, setFormData] = useState({firstName:"", lastName:"", email:"", comments:"", isVisible:true, mode:"", favCar:""});
+  // console.log(formData)
   
   function changeHandler(event){
     const {name, value, checked, type} = event.target
@@ -30,9 +30,16 @@ function App() {
     });
   }
 
+  function submitHandler(event){
+    event.preventDefault();
+
+    console.log("Finally printing all the data of the form")
+    console.log(formData)
+  }
+
   return (
     <div>
-      <form action="">
+      <form action="" onSubmit={submitHandler}>
         <input type="text" placeholder='first name' 
         onChange={changeHandler}
         name='firstName'
@@ -73,15 +80,53 @@ function App() {
 
         <br />
         <br />
-        
+
+        <fieldset>
+          <legend>Mode:</legend>
         <input 
         type="radio"
         onChange={changeHandler}
         name='mode'
         value="Online-Mode"
         id='Online-Mode'
+        checked={formData.mode === "Online-Mode"}
         />
         <label htmlFor="Online-Mode">Online-Mode</label>
+        
+        <br />
+        <br />
+
+        <input 
+        type="radio"
+        onChange={changeHandler}
+        name='mode'
+        value="Offline-Mode"
+        id='Offline-Mode'
+        checked={formData.mode === "Offline-Mode"}
+        />
+        <label htmlFor="Offline-Mode">Offline-Mode</label>
+        </fieldset>
+
+        <label htmlFor="favCar">Tell me your favourite car</label>
+        <select 
+        name="favCar"
+        onChange={changeHandler}
+        id="favCar"
+        value={formData.favCar}
+        >
+          <option value="scarpio">Scarpio</option>
+          <option value="fartuner">Fartuner</option>
+          <option value="tharrr">Tharrr</option>
+          <option value="legendrr">legendrr</option>
+          <option value="dafenter">Dafender</option>
+        </select>
+
+        <br />
+        <br />
+
+        <button>Submit</button>
+
+
       </form>
     </div>
   )
